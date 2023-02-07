@@ -1,10 +1,8 @@
 package community;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -12,22 +10,20 @@ import java.util.Set;
 public class mainExtension {
     private static Map<Integer, Community> communityMap;
     private static Map<Integer, Follower> followerMap;
-    private Set<Integer> visited;
 
     public mainExtension(Map<Integer, Community> communityMap, Map<Integer, Follower> followerMap) {
         this.communityMap = communityMap;
         this.followerMap = followerMap;
-        this.visited = new HashSet<>();
     }
 
-    public List<Integer> getRelatedCommunitiesWithDegree(int communityId, int degree) {
-        List<Integer> relatedCommunities = new ArrayList<>();
+    public Set<Integer> getRelatedCommunitiesWithDegree(int communityId, int degree) {
+        Set<Integer> relatedCommunities = new HashSet<>();
         Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
         queue.offer(communityId);
-        relatedCommunities.add(communityId);
         int currDegree = 0;
 
-        while (!queue.isEmpty() && currDegree <= degree) {
+        while (!queue.isEmpty() && currDegree < degree) {
             int size = queue.size();
             currDegree++;
 
@@ -35,10 +31,13 @@ public class mainExtension {
                 int currCommunity = queue.poll();
                 Community curr = communityMap.get(currCommunity);
                 visited.add(currCommunity);
-
+                System.out.println("Finding out the followers of communityId " + currCommunity);
                 for (int followerId : curr.followers) {
+                    System.out.println("follower " + followerId);
                     Follower f = followerMap.get(followerId);
+                    System.out.println("Finding out the communities of follower " + followerId);
                     for (int relatedCommunityId : f.communities) {
+                        System.out.println("community " + relatedCommunityId);
                         if (!visited.contains(relatedCommunityId)) {
                             queue.offer(relatedCommunityId);
                             relatedCommunities.add(relatedCommunityId);
@@ -47,6 +46,7 @@ public class mainExtension {
                     }
                 }
             }
+            System.out.println("Degree " + currDegree + " related communities for communityId " + communityId + " " + relatedCommunities);
         }
         return relatedCommunities;
     }
@@ -90,6 +90,7 @@ public class mainExtension {
         followerMap.put(3, f3);
 
         mainExtension mainExtension = new mainExtension(communityMap, followerMap);
+
         System.out.println("get_related_communities_with_degree(C4, 1): " + mainExtension.getRelatedCommunitiesWithDegree(4, 1));
         System.out.println("get_related_communities_with_degree(C4, 2): " + mainExtension.getRelatedCommunitiesWithDegree(4, 2));
     }
