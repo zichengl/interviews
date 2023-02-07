@@ -9,37 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class main {
-    static class Community {
-        int id;
-        List<Integer> followers;
 
-        public Community(int id) {
-            this.id = id;
-            followers = new ArrayList<>();
-        }
-
-        public void addFollower(int followerId) {
-            followers.add(followerId);
-        }
-    }
-
-    static class Follower {
-        int id;
-        List<Integer> communities;
-
-        public Follower(int id) {
-            this.id = id;
-            communities = new ArrayList<>();
-        }
-
-        public void addCommunity(int communityId) {
-            communities.add(communityId);
-        }
-    }
-
-    public class Main {
-        static Map<Integer, Community> communitiesMap = new HashMap<>();
-        static Map<Integer, Follower> followersMap = new HashMap<>();
+        public static Map<Integer, Community> communitiesMap;
+        public static Map<Integer, Follower> followersMap;
 
         public static List<Integer> getRelatedCommunities(int communityId) {
             Set<Integer> relatedCommunities = new HashSet<>();
@@ -58,6 +30,9 @@ public class main {
         }
 
         public static void main(String[] args) {
+            communitiesMap = new HashMap<>();
+            followersMap = new HashMap<>();
+
             // Populate communitiesMap and followersMap data as per the example
             Community c1 = new Community(1);
             c1.addFollower(1);
@@ -96,5 +71,4 @@ public class main {
             System.out.println(getRelatedCommunities(4));
             System.out.println(getRelatedCommunities(2));
         }
-    }
 }
