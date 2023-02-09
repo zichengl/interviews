@@ -1,6 +1,5 @@
 package ValidCard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +20,9 @@ public class Main {
         Card card = pq.poll();
         int startRank = card.num;
         int prevRank = startRank;
-        char set = card.set;
+        char preSet = card.set;
         rankCounter.put(startRank, rankCounter.getOrDefault(startRank, 0) + 1);
-        setCounter.put(set, rankCounter.getOrDefault(set, 0) + 1);
+        setCounter.put(preSet, rankCounter.getOrDefault(preSet, 0) + 1);
         // "2D 3C 5H 6S"
         while (!pq.isEmpty()) {
             Card curCard = pq.poll();
@@ -33,9 +32,10 @@ public class Main {
             if (rank - prevRank == 1)  { // consecutive rank
                 rankCounter.put(startRank, rankCounter.getOrDefault(startRank, 0) + 1);
             } else if (rank - prevRank == 0) { // same rank
-                setCounter.put(curSet, setCounter.getOrDefault(set, 0) + 1);
+                setCounter.put(curSet, setCounter.getOrDefault(curSet, 0) + 1);
             } else {
                 startRank = rank;
+                setCounter.put(curSet, 1);
                 rankCounter.put(startRank, 1); // reset counter
             }
             prevRank = rank;
@@ -63,10 +63,16 @@ public class Main {
         System.out.println("Output: " + validCards(inputArray1));
 
 
-        String[] inputArray2 = {"3D", "3C", "5C", "6S", "7D",};
+        String[] inputArray2 = {"3D", "4D", "7S", "6C", "10D", "9S"};
         List<String> input2 = Arrays.asList(inputArray2);
         System.out.println("Input: " + input2);
         System.out.println("Output: " + validCards(inputArray2));
+
+
+        String[] inputArray3 = {"3D", "3D", "9D", "4S", "9D","9D"};
+        List<String> input3 = Arrays.asList(inputArray3);
+        System.out.println("Input: " + input3);
+        System.out.println("Output: " + validCards(inputArray3));
     }
 
 }
