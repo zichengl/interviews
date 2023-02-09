@@ -9,6 +9,9 @@ public class Card {
             set = card.charAt(2);
         } else {
             switch(card.charAt(0)) {
+                case 'A':
+                    num = 1;
+                    break;
                 case 'J':
                     num = 11;
                     break;
