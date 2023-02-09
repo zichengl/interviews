@@ -7,7 +7,7 @@ The play of the card is valid when meeting the following 2 options
 
 * 3 or more same ranks with the same suit
    
-Any play less than 2 cars is invalid
+Any play less than 3 cards is invalid
    
    ###   Example
    "2D",  "4H", "6S", "3C" --> valid
