@@ -1,7 +1,6 @@
 package MultiFileReader;
 
 import java.io.*;
-import java.nio.file.Path;
 
 public class MultiFileReader {
     private FileReader currentReader;
@@ -16,25 +15,25 @@ public class MultiFileReader {
 
     public int read(char[] cbuf, int n) throws IOException {
         int totalRead = 0;
-        while (totalRead < n) {
-            int read = currentReader.read();
-            if (read == -1) {
-                System.out.println("Switching to new file");
+        while (totalRead < n && currentReader.ready()) {
+            int numRead = currentReader.read(cbuf, totalRead, n - totalRead);
+            if (!currentReader.ready()) {
                 // 如果当前文件已经读完，则关闭当前文件的reader
                 currentReader.close();
                 currentIndex++;
                 if (currentIndex >= files.length) {
                     // 所有文件都已经读完，结束
+                    totalRead += numRead;
                     System.out.println("n is " + n + " TotalRead is " + totalRead + " Reading chars for " + new String(cbuf));
                     return totalRead;
                 } else {
                     // 开始读取下一个文件
+                    System.out.println("Switching to new file");
                     currentReader = new FileReader(files[currentIndex]);
                 }
-            } else {
-                cbuf[totalRead++] = (char)read;
-
             }
+            totalRead += numRead;
+
         }
         System.out.println("n is " + n + " TotalRead is " + totalRead + " Reading chars for " + new String(cbuf));
         return totalRead;
@@ -49,8 +48,8 @@ public class MultiFileReader {
         MultiFileReader reader = new MultiFileReader(files);
 
         while (reader.currentReader.ready()) {
-            int n = 3;
-            char[] cbuf = new char[3];
+            int n = 18;
+            char[] cbuf = new char[18];
             reader.read(cbuf, n);
         }
     }

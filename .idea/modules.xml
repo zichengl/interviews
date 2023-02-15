@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/google/google.iml" filepath="$PROJECT_DIR$/google/google.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/interviews.iml" filepath="$PROJECT_DIR$/.idea/interviews.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reddit/reddit.iml" filepath="$PROJECT_DIR$/reddit/reddit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/snowflake/snowflake.iml" filepath="$PROJECT_DIR$/snowflake/snowflake.iml" />
+    </modules>
+  </component>
+</project>
