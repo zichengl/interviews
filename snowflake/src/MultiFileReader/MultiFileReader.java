@@ -40,8 +40,8 @@ public class MultiFileReader {
     }
 
     public static void main(String[] args) throws IOException {
-        File file = new File("/Users/zichengliu/interviews/snowflake/src/MultiFileReader/text1.txt");
-        File file2 = new File("/Users/zichengliu/interviews/snowflake/src/MultiFileReader/text2.txt");
+        File file = new File("/Users/zichengliu/workspace/interviews/snowflake/src/MultiFileReader/text1.txt");
+        File file2 = new File("/Users/zichengliu/workspace/interviews/snowflake/src/MultiFileReader/text2.txt");
         File[] files = new File[2];
         files[0] = file;
         files[1] = file2;
