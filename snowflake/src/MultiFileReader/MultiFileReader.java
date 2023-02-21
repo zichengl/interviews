@@ -48,8 +48,8 @@ public class MultiFileReader {
         MultiFileReader reader = new MultiFileReader(files);
 
         while (reader.currentReader.ready()) {
-            int n = 18;
-            char[] cbuf = new char[18];
+            int n = 15;
+            char[] cbuf = new char[15];
             reader.read(cbuf, n);
         }
     }
