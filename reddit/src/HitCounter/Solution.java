@@ -67,70 +67,48 @@ class Solution {
         strings.add("This pad is running Java " + Runtime.version().feature());
 
         HitCounter hitcounter = new HitCounter();
+
+        hitcounter.hit(10);
+        hitcounter.hit(9);
+        System.out.println(hitcounter.getHits(100)); // returns 2
+        hitcounter.hit(201);
         hitcounter.hit(1);
-        System.out.println(hitcounter.getHits(2));
-        hitcounter.hit(3);
-        System.out.println(hitcounter.getHits(3));
-        hitcounter.hit(103);
-        System.out.println(hitcounter.getHits(103));
+        System.out.println(hitcounter.getHits(400)); // returns 2 (100 and 201)
 
-        hitcounter.hit(203);
-        System.out.println(hitcounter.getHits(203));
-
-        hitcounter.hit(400);
-        System.out.println(hitcounter.getHits(400));
-
-
-        hitcounter.hit(1500);
-        hitcounter.hit(1501);
-        System.out.println(hitcounter.getHits(1503));
     }
 }
 
 class HitCounter {
-    private static int N = 300;
-    private static int[] data;
-    public static int lastTimestamp;
-    public static int pointer;
-    private static int sum;
-
+    private int[] times;
+    private int[] hits;
+    /** Initialize your data structure here. */
     public HitCounter() {
-        data = new int[N];
-        lastTimestamp = 0;
-        pointer = 0;
-        sum = 0;
+        times = new int[300];
+        hits = new int[300];
     }
 
-    public static void hit(int timestamp) {
-        System.out.println("Hitting at timestamp   : " + timestamp);
-        rotate(timestamp);
-        data[pointer]++;
-        sum++;
-        lastTimestamp = timestamp;
-    }
-
-    public static int getHits(int timestamp) { // 3
-        System.out.println("Getting hits at stamp stamp   : " + timestamp);
-        rotate(timestamp);
-        lastTimestamp = timestamp;
-        return sum;
-    }
-
-    // value  0   0   0   0        0      0
-    // silos  0   1   2   3........99... 299
-    // TIME1
-    private static void rotate(int timestamp) {
-        int gap = timestamp - lastTimestamp;
-//        System.out.println(" LastTimestamp : " + lastTimestamp);
-//        System.out.println(" gap is : " + gap);
-          System.out.println(" LastPosition : " + pointer);
-
-        for (int i = 0; i < gap; i++) {
-            pointer = pointer + 1;
-            pointer = pointer % N;
-            sum -= data[pointer];
-            data[pointer] = 0;
+    /** Record a hit.
+     @param timestamp - The current timestamp (in seconds granularity). */
+    public void hit(int timestamp) {
+        int index = timestamp % 300;
+        if (times[index] != timestamp) {
+            times[index] = timestamp;
+            hits[index] = 1;
+        } else {
+            hits[index]++;
         }
+    }
+
+    /** Return the number of hits in the past 5 minutes.
+     @param timestamp - The current timestamp (in seconds granularity). */
+    public int getHits(int timestamp) {
+        int total = 0;
+        for (int i = 0; i < 300; i++) {
+            if (timestamp - times[i] < 300) {
+                total += hits[i];
+            }
+        }
+        return total;
     }
 }
 

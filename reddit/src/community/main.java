@@ -25,7 +25,7 @@ public class main {
                 }
             }
             List<Integer> result = new ArrayList<>(relatedCommunities);
-            Collections.sort(result);
+            // Collections.sort(result);
             return result;
         }
 
