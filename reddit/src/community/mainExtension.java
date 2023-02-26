@@ -25,19 +25,16 @@ public class mainExtension {
 
         while (!queue.isEmpty() && currDegree < degree) {
             int size = queue.size();
-            currDegree++;
 
             for (int i = 0; i < size; i++) {
                 int currCommunity = queue.poll();
                 Community curr = communityMap.get(currCommunity);
                 visited.add(currCommunity);
-                System.out.println("Finding out the followers of communityId " + currCommunity);
                 for (int followerId : curr.followers) {
-                    System.out.println("follower " + followerId);
-                    Follower f = followerMap.get(followerId);
-                    System.out.println("Finding out the communities of follower " + followerId);
-                    for (int relatedCommunityId : f.communities) {
-                        System.out.println("community " + relatedCommunityId);
+                    System.out.println(" Follower " + followerId);
+                    Follower follower = followerMap.get(followerId);
+                    System.out.println(" Finding out the communities of follower " + followerId);
+                    for (int relatedCommunityId : follower.communities) {
                         if (!visited.contains(relatedCommunityId)) {
                             queue.offer(relatedCommunityId);
                             relatedCommunities.add(relatedCommunityId);
@@ -46,6 +43,7 @@ public class mainExtension {
                     }
                 }
             }
+            currDegree++;
             System.out.println("Degree " + currDegree + " related communities for communityId " + communityId + " " + relatedCommunities);
         }
         return relatedCommunities;
