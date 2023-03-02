@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+// 第三问：加了一点ood，就说如果是个游戏，然后每一轮有maxattempt，怎么设计+改之前写好的method
 public class GuessString {
     public static void main(String[] args) {
         String target = "SMILE";

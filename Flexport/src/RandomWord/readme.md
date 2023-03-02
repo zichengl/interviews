@@ -1,5 +1,5 @@
 generate random sentence
-Input：this is a sentence it is a good one and it is also bad.
+Input：this is a sentence it is a good one and it is also bad sentence number.
 5
 Output：is not a sentence it
 输入：一个句子. Χ
